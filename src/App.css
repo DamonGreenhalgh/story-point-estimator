@@ -1,0 +1,21 @@
+.app {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    height: 100vh;
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.storypoint-container {
+    display: flex;
+    flex-direction: column;
+    
+}

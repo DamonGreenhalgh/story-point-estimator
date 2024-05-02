@@ -1,0 +1,26 @@
+{
+    "filters": [
+        {
+            "type": "Effort",
+            "options": ["Minimal", "Mild", "Moderate", "Severe", "Maximum"],
+            "weights": [0, 1, 2, 3, 4]
+        },
+        {
+            "type": "Time",
+            "options": ["1hr", "4hr", "8hr", "24hr", "40hr"],
+            "weights": [0, 1, 2, 3, 4]
+        },
+        {
+            "type": "Complexity",
+            "options": ["Little", "Low", "Medium", "High"],
+            "weights": [0, 1, 2, 3]
+        },
+        {
+            "type": "Risk/Uncertainty",
+            "options": ["None", "Low", "Medium", "High"],
+            "weights": [0, 1, 2, 3]
+        }
+
+    ],
+    "maxFib": 13
+}
