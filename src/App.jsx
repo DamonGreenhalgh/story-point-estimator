@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import db from "./data/data.json";
+import {
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Divider,
+} from "@mui/material";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
 
 function App() {
   const [filters, setFilters] = useState([]);
   const [filterSelections, setFilterSelections] = useState([]);
-  const [storyPointEstimate, setStoryPointEstimate] = useState();
-  const [maxFib, setMaxFib] = useState(-1);
+  const [storyPointEstimate, setStoryPointEstimate] = useState(1);
+  const [maxFib, setMaxFib] = useState(1);
 
   // Run on initial startup
   useEffect(() => {
@@ -21,6 +29,8 @@ function App() {
     optionIndexes[filterIndex] = selectedIndex;
 
     setFilterSelections(optionIndexes);
+
+    console.log(selectedIndex, filterIndex);
 
     // compute potential max value and current value
     let totalValue = 0;
@@ -62,32 +72,51 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Story Point Estimator</h1>
-
-      {filters.map((filter, filterIndex) => (
-        <div className="dropdown" key={filterIndex}>
-          <label>{filter.type}</label>
-          <select
-            name={filter.type}
-            key={filterIndex}
-            onChange={(event) =>
-              computeStoryPointEstimate(event.target.selectedIndex, filterIndex)
-            }
-          >
-            {filter.options.map((option, optionIndex) => (
-              <option key={optionIndex} value={optionIndex}>
-                {option}
-              </option>
-            ))}
-          </select>
+      <div className="content-container">
+        <div style={{ display: "flex", gap: "8px" }}>
+          <MenuBookIcon />
+          <h3>Story Point Estimator</h3>
         </div>
-      ))}
 
-      <div className="storypoint-container">
-        <p>Estimated Story Point</p>
         <p>
-          <b>{storyPointEstimate}</b>
+          Simple tool to estimate story point value during sprint retros.
+          Fibonacci sequence is the scale used to determine the story point
+          value. Max value: {maxFib}. Min value: 1
         </p>
+        <div className="mid-container">
+          <div className="filter-container">
+            {filters.map((filter, filterIndex) => (
+              <FormControl fullWidth>
+                <InputLabel>{filter.type}</InputLabel>
+                <Select
+                  style={{
+                    width: "100%",
+                  }}
+                  defaultValue={0}
+                  key={filterIndex}
+                  label={filter.type}
+                  onChange={(e) =>
+                    computeStoryPointEstimate(e.target.value, filterIndex)
+                  }
+                >
+                  {filter.options.map((option, optionIndex) => (
+                    <MenuItem key={optionIndex} value={optionIndex}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            ))}
+          </div>
+
+          <Divider orientation="vertical" />
+
+          <div className="storypoint-container">
+            <div className="storypoint-number-container">
+              <h2 className="storypoint-number">{storyPointEstimate}</h2>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
